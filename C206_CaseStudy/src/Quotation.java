@@ -1,20 +1,19 @@
-import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Quotation {
 
-	private  String RequestID;
+	private String RequestID;
 	private String QuotationID;
 	private String renovationCategory;
 	private String DesiName;
 	private String Description;
-	private String earliestStartDate;
+	private LocalDate earliestStartDate;
 	private double TotalQuotationamt;
 	
 
 
 	public Quotation(String RequestID, String QuotationID, String renovationCategory, String Description,
-			String DesiName, String earliestStartDate, double TotalQuotationamt) {
+			String DesiName, LocalDate earliestStartDate, double TotalQuotationamt) {
 		// TODO Auto-generated constructor stub\
 		this.RequestID = RequestID;
 		this.QuotationID = QuotationID;
@@ -46,7 +45,7 @@ public class Quotation {
 		return Description;
 	}
 
-	public String getEarliest_Start_Date() {
+	public LocalDate getEarliest_Start_Date() {
 		return earliestStartDate;
 	}
 
