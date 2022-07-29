@@ -1,7 +1,7 @@
 import java.time.LocalDate;
 
 public class Quotation {
-
+	
 	private String RequestID;
 	private String QuotationID;
 	private String renovationCategory;

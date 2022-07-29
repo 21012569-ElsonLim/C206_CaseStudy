@@ -47,6 +47,7 @@ public class C206CaseStudy {
 						}
 					}
 				}
+				
 			} else if (logonChoice == 2) { // THIS IS UNDONE - Jun Cheng
 				String correctStaffUsername = ""; //Related to Jasrene's topic
 				String correctStaffPassword = ""; //Related to Jasrene's topic
