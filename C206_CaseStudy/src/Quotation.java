@@ -9,10 +9,12 @@ public class Quotation {
 	private String Description;
 	private LocalDate earliestStartDate;
 	private double TotalQuotationamt;
+	
 	private String propertyType;
 	private double areaSize;
 	private String requestorName;
 	private int customerContactNum;
+	private String customerEmail;
 	private double budget;
 	private LocalDate targetCompletionDate;
 	private int roomToRenovate;
@@ -22,7 +24,6 @@ public class Quotation {
 
 	public Quotation(String RequestID, String QuotationID, String renovationCategory, String Description,
 			String DesiName, LocalDate earliestStartDate, double TotalQuotationamt) {
-		// TODO Auto-generated constructor stub\
 		this.RequestID = RequestID;
 		this.QuotationID = QuotationID;
 		this.renovationCategory = renovationCategory;
@@ -33,12 +34,13 @@ public class Quotation {
 	}
 	
 	public Quotation(String propertyType, double areaSize, String requestorName, int customerContactNum,
-			double budget, LocalDate targetCompletionDate, int roomToRenovate, int toiletToRenovate,
-			String renovationStyle, boolean urgentRequest) {
+			String customerEmail, double budget, LocalDate targetCompletionDate, int roomToRenovate,
+			int toiletToRenovate, String renovationStyle, boolean urgentRequest) {
 		this.propertyType = propertyType;
 		this.areaSize = areaSize;
 		this.requestorName = requestorName;
 		this.customerContactNum = customerContactNum;
+		this.customerEmail = customerEmail;
 		this.budget = budget;
 		this.targetCompletionDate = targetCompletionDate;
 		this.roomToRenovate = roomToRenovate;
@@ -76,6 +78,8 @@ public class Quotation {
 		return TotalQuotationamt;
 	}
 
+	
+	
 	public String getPropertyType() {
 		return propertyType;
 	}
@@ -92,14 +96,30 @@ public class Quotation {
 		return customerContactNum;
 	}
 	
+	public String getCustomerEmail() {
+		return customerEmail;
+	}
+	
 	public double getbudget() {
 		return budget;
 	}
 	
-//	public LocalDate gettargetCopletionDate() {
-//		
-//	}
-	//
-
-
+	public LocalDate getTargetCompletionDate() {
+		return targetCompletionDate;
+	}
+	
+	public int getRoomToRenovate() {
+		return roomToRenovate;
+	}
+	
+	public int getToiletToRenovate() {
+		return toiletToRenovate;
+	}
+	public String getRenovationStyle() {
+		return renovationStyle;
+	}
+	
+	public boolean getUrgentRequest() {
+		return urgentRequest;
+	}
 }

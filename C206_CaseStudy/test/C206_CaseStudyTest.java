@@ -11,11 +11,15 @@ public class C206_CaseStudyTest extends C206CaseStudy {
   private Quotation Q1;
   private Quotation Q2;
   private Quotation Q3;
+  private Quotation Q4;
+  private Quotation Q5;
+  private Quotation Q6;
   private Package P1;
   private Package P2;
   private Package P3;
   
   private ArrayList<Quotation> QuotationList;
+  private ArrayList<Quotation> RequestedQuotationList;
   private ArrayList<Package> PackageList;
   @Before
   public void setUp() throws Exception {
@@ -27,15 +31,24 @@ public class C206_CaseStudyTest extends C206CaseStudy {
     LocalDate e2 = LocalDate.parse("2012-01-18");
     LocalDate e3 = LocalDate.parse("2010-05-19");
     
+    LocalDate p4 = LocalDate.parse("2016-11-20");
+    LocalDate p5 = LocalDate.parse("2016-02-13");
+    LocalDate p6 = LocalDate.parse("2016-06-16");
+    
     Q1= new Quotation("Q101","QU1","Kitchen","Shiny and clean ","Loki",p1,359.90);
     Q2= new Quotation("Q102","QU2","Bedroom","Big and tidy ","Harry",p2,500.00);
     Q3= new Quotation("Q103","QU3","Bedroom","Bright ","Louis",p3,450.00);
+    
+    Q4 = new Quotation("HDB",100.25,"James",91234567,"James@gmail.com",1000.10,p4,2,0,"",false);
+    Q5 = new Quotation("Private",200.25,"Jacob",98765432,"Jacob@hotmail.com",200.20,p5,1,1,"",true);
+    Q6 = new Quotation("Landed",300.25,"Cody",91827364,"Cody@yahoo.com",300.30,p6,0,2,"",true);
     
     P1 = new Package("P101", "Shiny Kitchen", p1, e1, 400);
     P2 = new Package("P102", "Small BedRoom", p2, e2, 500);
     P3 = new Package("P103", "Big Bedroom", p3, e3, 600);
     
     QuotationList =new ArrayList<Quotation>();
+    RequestedQuotationList = new ArrayList<Quotation>();
     PackageList = new ArrayList<Package>();
   }
 
@@ -55,21 +68,21 @@ public class C206_CaseStudyTest extends C206CaseStudy {
   @Test
   public void testAddQuotation() {
     
-    assertNotNull("Test if there is valid Camcorder arraylist to add to", QuotationList);
+    assertNotNull("Test if there is valid Quotation arraylist to add to", QuotationList);
     
     //Given an empty list, after adding 1 item, the size of the list is 1
     C206CaseStudy.addQuotation(QuotationList, Q1);    
-    assertEquals("Test if that Camcorder arraylist size is 1?", 1, QuotationList.size());
+    assertEquals("Test if that Quotation arraylist size is 1?", 1, QuotationList.size());
     
     //The item just added is as same as the first item of the list
-    assertSame("Test that Camcorder is added same as 1st item of the list?", Q1, QuotationList.get(0));
+    assertSame("Test that Quotation is added same as 1st item of the list?", Q1, QuotationList.get(0));
     
     //Add another item. test The size of the list is 2?
     C206CaseStudy.addQuotation(QuotationList, Q2);
     C206CaseStudy.addQuotation(QuotationList, Q3);
-    assertEquals("Test that Camcorder arraylist size is 3?", 3, QuotationList.size());
-    assertSame("Test that Camcorder is added same as 3rd item of the list?", Q3, QuotationList.get(2));
-    }
+    assertEquals("Test that Quotation arraylist size is 3?", 3, QuotationList.size());
+    assertSame("Test that Quotation is added same as 3rd item of the list?", Q3, QuotationList.get(2));
+    } // Done by Elson
     
     @Test
     public void testRetrieveAllQuotation() {
@@ -95,7 +108,7 @@ public class C206_CaseStudyTest extends C206CaseStudy {
       testOutput += String.format("%-10s %-30s %-10s %-10s %-20s %-20s\n","Q103","QU3","Bedroom","Bright ","Louis","2010-05-12");
       assertEquals("Check that ViewAllQuotationlist", allQuotation,testOutput);
       
-    }
+    } // Done by Elson
 
 
     @Test
@@ -112,7 +125,62 @@ public class C206_CaseStudyTest extends C206CaseStudy {
       QuotationList.remove(0);
       assertTrue(QuotationList.isEmpty());
       
-    }
+    } // Done by Elson
+    
+    @Test
+    public void testAddRequestedQuotation() {
+        
+        assertNotNull("Test if there is a Requested Quotation arraylist to add to", RequestedQuotationList);
+        
+        C206CaseStudy.addRequestQuotation(RequestedQuotationList, Q4);    
+        assertEquals("Test if the Requested Quotation arraylist size is 1", 1, RequestedQuotationList.size());
+
+        assertSame("Test that Quotation is added same as 1st item of the list?", Q4, RequestedQuotationList.get(0));
+
+        C206CaseStudy.addRequestQuotation(RequestedQuotationList, Q5);
+        C206CaseStudy.addRequestQuotation(RequestedQuotationList, Q6);
+        assertEquals("Test that Quotation arraylist size is 3?", 3, RequestedQuotationList.size());
+        assertSame("Test that Quotation is added same as 3rd item of the list?", Q6, RequestedQuotationList.get(2));
+     } // Done by Jun Cheng #1
+    
+    @Test
+    public void testRetrieveAllRequestedQuotation() {
+      assertNotNull("Test if there is a Requested Quotation arraylist to add to", RequestedQuotationList);
+      
+      String allRequestedQuotation= C206CaseStudy.retrieveAllRequestedQuotation(RequestedQuotationList);
+      String output = "";
+      assertEquals("Check that ViewAllQuotationlist", output, allRequestedQuotation);
+
+      C206CaseStudy.addRequestQuotation(RequestedQuotationList, Q4);
+      C206CaseStudy.addRequestQuotation(RequestedQuotationList, Q5);
+      C206CaseStudy.addRequestQuotation(RequestedQuotationList, Q6);
+      assertEquals("Test if that the Requested Quotation arraylist size is 3?", 3, RequestedQuotationList.size());
+      
+      allRequestedQuotation= C206CaseStudy.retrieveAllRequestedQuotation(RequestedQuotationList);
+
+      output += String.format("%-20s %-20s %-30s %-30s %-30s %-30s %-30s %-30s %-30s %-30s %-30s\n","HDB","100.25","James","91234567","James@gmail.com","1000.1","2016-11-20","2","0","","false");
+      output += String.format("%-20s %-20s %-30s %-30s %-30s %-30s %-30s %-30s %-30s %-30s %-30s\n","Private","200.25","Jacob","98765432","Jacob@hotmail.com","200.2","2016-02-13","1","1","","true");
+      output += String.format("%-20s %-20s %-30s %-30s %-30s %-30s %-30s %-30s %-30s %-30s %-30s\n","Landed","300.25","Cody","91827364","Cody@yahoo.com","300.3","2016-06-16","0","2","","true");
+      assertEquals("Check that ViewAllQuotationlist",output,allRequestedQuotation);
+      
+    } // Done by Jun Cheng #2
+    
+    @Test
+    public void testDeleteRequestedQuotation() {
+    	
+      assertNotNull("Test if there is a Requested Quotation arraylist to add to", RequestedQuotationList);
+      
+      RequestedQuotationList.add(Q4);
+      
+      RequestedQuotationList.add(Q5);
+      assertEquals(2,RequestedQuotationList.size());
+      RequestedQuotationList.remove(0);
+      assertEquals(1,RequestedQuotationList.size());
+      RequestedQuotationList.remove(0);
+      assertTrue(RequestedQuotationList.isEmpty());
+      
+    } // Done by Jun Cheng #3
+    
     
   //=======================Add new Package ===========================================================
     public void testAddPackage() {
@@ -131,6 +199,6 @@ public class C206_CaseStudyTest extends C206CaseStudy {
     	C206CaseStudy.addPackage(PackageList, P3);
     	assertEquals("Test that Package arraylist size is 3?", 3, PackageList.size());
     	assertSame("Test that Package is added same as 3rd package of the list?", P3, PackageList.get(2));
-    }
+    } // Done by Cong Lin
     
 }

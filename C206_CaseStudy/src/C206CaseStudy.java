@@ -157,6 +157,28 @@ public class C206CaseStudy {
     }
     return output1;
   }
+  
+  public static String retrieveAllRequestedQuotation(ArrayList<Quotation> requestedQuotationList) {
+	  String output = "";  
+	  for (Quotation i : requestedQuotationList) {
+	    	 String propertyType = i.getPropertyType();
+	    	 String areaSize = Double.toString(i.getAreaType());    	
+	    	 String requestorName = i.getrequestorName();    	 
+	    	 String customerContactNum = i.getcustomerContactNum() + "";    	
+	    	 String customerEmail = i.getCustomerEmail();    	 
+	    	 String budget = i.getbudget() + "";
+	    	 String targetCompletionDate = i.getTargetCompletionDate() + "";
+	    	 String roomToRenovate = i.getRoomToRenovate() + "";
+	    	 String toiletToRenovate = i.getToiletToRenovate() + "";
+	    	 String renovationStyle = i.getRenovationStyle();
+	    	 String urgentRequest = i.getUrgentRequest() + "";
+	    	 output += String.format("%-20s %-20s %-30s %-30s %-30s %-30s %-30s %-30s %-30s %-30s %-30s\n",
+	    			propertyType,areaSize,requestorName,customerContactNum,customerEmail,budget,
+	    			targetCompletionDate,roomToRenovate,toiletToRenovate,renovationStyle,urgentRequest);
+	    }
+	    return output;
+	  } // Done by Jun Cheng
+  
   public static void viewAllQuotation(ArrayList<Quotation>QuotationList) {
     C206CaseStudy.setHeader("Quotation List");
     String output = String.format("%-10s %-30s %-10s %-35s %-20s %-15s %-20s\n", "REQUESTID", "QUOTATION",
