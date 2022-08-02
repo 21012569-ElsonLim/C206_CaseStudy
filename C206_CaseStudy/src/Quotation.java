@@ -48,7 +48,7 @@ public class Quotation {
 	}
 
 	
-	public String getRequest_ID1() {
+	public String getRequest_ID() {
 		return RequestID;
 	}
 

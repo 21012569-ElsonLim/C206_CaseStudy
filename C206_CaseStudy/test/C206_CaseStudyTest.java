@@ -84,28 +84,36 @@ public class C206_CaseStudyTest extends C206CaseStudy {
       //Given an empty list, after adding 2 items, test if the size of the list is 2
       C206CaseStudy.addQuotation(QuotationList, Q1);
       C206CaseStudy.addQuotation(QuotationList, Q2);
-      assertEquals("Test if that Quotation arraylist size is 2?", 2, QuotationList.size());
+      C206CaseStudy.addQuotation(QuotationList, Q3);
+      assertEquals("Test if that Quotation arraylist size is 3?", 3, QuotationList.size());
       
 
-//      allQuotation= C206CaseStudy.retrieveAllQuotation(QuotationList);
+      allQuotation= C206CaseStudy.retrieveAllQuotation(QuotationList);
 
-//      testOutput += String.format("%-10s %-30s %-10s %-10s %-20s %-20s %-20.2f\n","Q101","QU1","Kitchen","Shiny and clean ","Loki","03-10-2015",359.90);
-//      testOutput += String.format("%-10s %-30s %-10s %-10s %-20s %-20s %-20.2f\n","Q102","QU2","Bedroom","Big and tidy ","Harry","12-01-2012",500.00);
-//      testOutput += String.format("%-10s %-30s %-10s %-10s %-20s %-20s %-20.2f\n","Q103","QU3","Bedroom","Bright ","Louis","12-05-2010",450.00);
-//      assertEquals("Check that ViewAllQuotationlist", testOutput, allQuotation);//
+      testOutput += String.format("%-10s %-30s %-10s %-10s %-20s %-20s\n","Q101","QU1","Kitchen","Shiny and clean ","Loki","2015-10-03");
+      testOutput += String.format("%-10s %-30s %-10s %-10s %-20s %-20s\n","Q102","QU2","Bedroom","Big and tidy ","Harry","2012-01-12");
+      testOutput += String.format("%-10s %-30s %-10s %-10s %-20s %-20s\n","Q103","QU3","Bedroom","Bright ","Louis","2010-05-12");
+      assertEquals("Check that ViewAllQuotationlist", allQuotation,testOutput);
       
     }
 
 
     @Test
-//    public void testDeleteQuotation() {
-//      assertNotNull("Test if there is Quotation arraylist to add to", QuotationList);
-//      
-//      C206CaseStudy.addQuotation(QuotationList,Q1);
-//      
-//      Boolean deleted=C206CaseStudy.doDeleteQuotation(QuotationList, null);
-//    }
-//    
+    public void testDeleteQuotation() {
+    	
+      assertNotNull("Test if there is Quotation arraylist to add to", QuotationList);
+      
+      QuotationList.add(Q1);
+      
+      QuotationList.add(Q2);
+      assertEquals(2,QuotationList.size());
+      QuotationList.remove(0);
+      assertEquals(1,QuotationList.size());
+      QuotationList.remove(0);
+      assertTrue(QuotationList.isEmpty());
+      
+    }
+    
   //=======================Add new Package ===========================================================
     public void testAddPackage() {
     	// Package list is not null, so that can add a new Package
