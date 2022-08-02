@@ -53,7 +53,7 @@ public class User {
 
 	public void setStatus(String status) {
 		Status = status;
-	}
+	
 
 	
 	
