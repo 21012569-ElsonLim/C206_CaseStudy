@@ -9,8 +9,16 @@ public class Quotation {
 	private String Description;
 	private LocalDate earliestStartDate;
 	private double TotalQuotationamt;
-	
-
+	private String propertyType;
+	private double areaSize;
+	private String requestorName;
+	private int customerContactNum;
+	private double budget;
+	private LocalDate targetCompletionDate;
+	private int roomToRenovate;
+	private int toiletToRenovate;
+	private String renovationStyle;
+	private boolean urgentRequest;
 
 	public Quotation(String RequestID, String QuotationID, String renovationCategory, String Description,
 			String DesiName, LocalDate earliestStartDate, double TotalQuotationamt) {
@@ -22,6 +30,21 @@ public class Quotation {
 		this.Description=Description;
 		this.earliestStartDate = earliestStartDate;
 		this.TotalQuotationamt = TotalQuotationamt;
+	}
+	
+	public Quotation(String propertyType, double areaSize, String requestorName, int customerContactNum,
+			double budget, LocalDate targetCompletionDate, int roomToRenovate, int toiletToRenovate,
+			String renovationStyle, boolean urgentRequest) {
+		this.propertyType = propertyType;
+		this.areaSize = areaSize;
+		this.requestorName = requestorName;
+		this.customerContactNum = customerContactNum;
+		this.budget = budget;
+		this.targetCompletionDate = targetCompletionDate;
+		this.roomToRenovate = roomToRenovate;
+		this.toiletToRenovate = toiletToRenovate;
+		this.renovationStyle = renovationStyle;
+		this.urgentRequest = urgentRequest;
 	}
 
 	
@@ -53,7 +76,29 @@ public class Quotation {
 		return TotalQuotationamt;
 	}
 
-
+	public String getPropertyType() {
+		return propertyType;
+	}
+	
+	public double getAreaType() {
+		return areaSize;
+	}
+	
+	public String getrequestorName() {
+		return requestorName;
+	}
+	
+	public int getcustomerContactNum() {
+		return customerContactNum;
+	}
+	
+	public double getbudget() {
+		return budget;
+	}
+	
+	public LocalDate gettargetCopletionDate() {
+		
+	}
 	
 
 

@@ -92,4 +92,6 @@ public class C206_CaseStudyTest extends C206CaseStudy {
       
       Boolean deleted=C206CaseStudy.doDeleteQuotation(QuotationList, null);
     }
+    
+    
 }

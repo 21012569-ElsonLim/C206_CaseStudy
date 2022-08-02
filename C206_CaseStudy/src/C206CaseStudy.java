@@ -9,6 +9,7 @@ public class C206CaseStudy {
   private Quotation Q3;
   
   private static final ArrayList<Quotation> QuotationList= new  ArrayList<Quotation>();
+  private static final ArrayList<Quotation> requestedQuotationList = new ArrayList<Quotation>();
 
   
   
@@ -179,14 +180,29 @@ public class C206CaseStudy {
   
   
   
+  public static void requestQuotation(ArrayList<Quotation> requestedQuotationList, Quotation x) {
+	  
+	  requestedQuotationList.add(x);
+  } // Done by Jun Cheng
   
+  public static void viewAlRequestedQuotation(ArrayList<Quotation> requestedQuotationList) {
+	  C206CaseStudy.setHeader("Requested Quotation List");
+	    String output = String.format("%-10s %-30s %-10s %-35s %-20s %-15s %-20s\n", "REQUESTID", "QUOTATION",
+	        "RENOVATIONCATEGORY", "DESCRIPTION","DESIGNER NAME ","EARLIEST START DATE ","TOTAL QUOTATION AMOUNT ");
+	    
+	     output += retrieveAllQuotation(requestedQuotationList);
+	    System.out.println(output);
+  } // Done by Jun Cheng
   
+  public static void doDeleteRequestedQuotation(ArrayList<Quotation> requestedQuotationList,String ) {
+	  
+  }
   
   
   public static void addQuotation(ArrayList<Quotation> QuotationList, Quotation x) {
 
     QuotationList.add(x);
-  }
+  } // Done by Elson
   
   
 
@@ -201,7 +217,5 @@ public class C206CaseStudy {
       }
     }
   return delete;
-  
-  
-}
+  } // Done by Elson
 }
