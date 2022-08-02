@@ -198,7 +198,6 @@ public class C206CaseStudy {
 	
 	
 	
-	
 	public static void addQuotation(ArrayList<Quotation> QuotationList, Quotation x) {
 
 		QuotationList.add(x);
