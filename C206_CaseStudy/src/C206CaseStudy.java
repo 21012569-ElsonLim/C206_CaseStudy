@@ -194,9 +194,9 @@ public class C206CaseStudy {
 	    System.out.println(output);
   } // Done by Jun Cheng
   
-  public static void doDeleteRequestedQuotation(ArrayList<Quotation> requestedQuotationList,String ) {
-	  
-  }
+//  public static void doDeleteRequestedQuotation(ArrayList<Quotation> requestedQuotationList,String ) {
+//	  
+//  }
   
   
   public static void addQuotation(ArrayList<Quotation> QuotationList, Quotation x) {
@@ -207,15 +207,19 @@ public class C206CaseStudy {
   
 
   
-  public static boolean doDeleteQuotation(ArrayList<Quotation> QuotationList, String QuotationID) {
-    
-    boolean delete=false;
-    
-  for(int q = 1;q <=QuotationList.size();q++) {
-      if(QuotationList.get(q).getQuotation_ID().equalsIgnoreCase(QuotationID)&&(QuotationList!=null)){
-//        QuotationList.get(q)
-      }
-    }
-  return delete;
-  } // Done by Elson
+//  public static boolean doDeleteQuotation(ArrayList<Quotation> QuotationList, String QuotationID) {
+//    
+//    boolean delete=false;
+//    
+//  for(int q = 1;q <=QuotationList.size();q++) {
+//      if(QuotationList.get(q).getQuotation_ID().equalsIgnoreCase(QuotationID)&&(QuotationList!=null)){
+////        QuotationList.get(q)
+//      }
+//    }
+//  return delete;
+//  } // Done by Elson
+  
+  public static void addPackage(ArrayList<Package> PackageList, Package P) {
+	  PackageList.add(P);
+  }
 }

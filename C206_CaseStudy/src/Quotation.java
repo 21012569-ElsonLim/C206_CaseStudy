@@ -96,9 +96,9 @@ public class Quotation {
 		return budget;
 	}
 	
-	public LocalDate gettargetCopletionDate() {
-		
-	}
+//	public LocalDate gettargetCopletionDate() {
+//		
+//	}
 	
 
 
