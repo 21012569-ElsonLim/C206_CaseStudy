@@ -19,6 +19,13 @@ public class C206CaseStudy {
     QuotationList.add(new Quotation("Q102","QU2","Bedroom","Big and tidy ","Harry",p2,500.00) );
     QuotationList.add(new Quotation("Q103","QU3","Bedroom","Bright ","Louis",p3,450.00));
     
+    LocalDate p4 = LocalDate.parse("2016-11-20");
+    LocalDate p5 = LocalDate.parse("2016-02-13");
+    LocalDate p6 = LocalDate.parse("2016-06-16");
+    requestedQuotationList.add(new Quotation("HDB",100.25,"James",91234567,"James@gmail.com",1000.10,p4,2,0,"",false));
+    requestedQuotationList.add(new Quotation("Private",200.25,"Jacob",98765432,"Jacob@hotmail.com",200.20,p5,1,1,"",true));
+    requestedQuotationList.add(new Quotation("Landed",300.25,"Cody",91827364,"Cody@yahoo.com",300.30,p6,0,2,"",true));
+    
     int logonChoice = -1;
     while (logonChoice != 3) {
       logon_menu();
@@ -157,7 +164,7 @@ public class C206CaseStudy {
     
      output += retrieveAllQuotation(QuotationList);
     System.out.println(output);
-  }
+  } // Done by Elson
 
   
   
@@ -182,33 +189,46 @@ public class C206CaseStudy {
   
   
   
-  public static void requestQuotation(ArrayList<Quotation> requestedQuotationList, Quotation x) {
+  public static void addRequestQuotation(ArrayList<Quotation> requestedQuotationList, Quotation x) {
 	  
 	  requestedQuotationList.add(x);
-  } // Done by Jun Cheng
+	  
+  } // Done by Jun Cheng #1
   
-  public static void viewAlRequestedQuotation(ArrayList<Quotation> requestedQuotationList) {
+  public static void viewAllRequestedQuotation(ArrayList<Quotation> requestedQuotationList) {
 	  C206CaseStudy.setHeader("Requested Quotation List");
 	    String output = String.format("%-10s %-30s %-10s %-35s %-20s %-15s %-20s\n", "REQUESTID", "QUOTATION",
 	        "RENOVATIONCATEGORY", "DESCRIPTION","DESIGNER NAME ","EARLIEST START DATE ","TOTAL QUOTATION AMOUNT ");
 	    
 	     output += retrieveAllQuotation(requestedQuotationList);
 	    System.out.println(output);
-  } // Done by Jun Cheng
+  } // Done by Jun Cheng #2
   
-//  public static void doDeleteRequestedQuotation(ArrayList<Quotation> requestedQuotationList,String ) {
-//	  
-//  }
-  
-  
+  public static void doDeleteRequestedQuotation(ArrayList<Quotation> requestedQuotationList, String RequestorName) {
+	  for(Quotation i : requestedQuotationList) {
+	      if(i.getrequestorName().equalsIgnoreCase(RequestorName)){    
+	    	  String propertyType = i.getPropertyType();
+	    	  double areaSize = i.getAreaType();    	
+	    	  String requestorName = i.getrequestorName();    	 
+	    	  int customerContactNum = i.getcustomerContactNum();    	
+	    	  String customerEmail = i.getCustomerEmail();    	 
+	    	  double budget = i.getbudget();
+	    	  LocalDate targetCompletionDate = i.getTargetCompletionDate();
+	    	  int roomToRenovate = i.getRoomToRenovate();
+	    	  int toiletToRenovate = i.getToiletToRenovate();
+	    	  String renovationStyle = i.getRenovationStyle();
+	    	  boolean urgentRequest = i.getUrgentRequest();
+	    	  Quotation removing = new Quotation(propertyType,areaSize,requestorName,customerContactNum,customerEmail,budget,targetCompletionDate,roomToRenovate,toiletToRenovate,renovationStyle,urgentRequest);
+	    	  requestedQuotationList.remove(removing);
+	      }
+	    }
+  } // Done by Jun Cheng #3
+
   public static void addQuotation(ArrayList<Quotation> QuotationList, Quotation x) {
 
     QuotationList.add(x);
   } // Done by Elson
-  
-  //
 
-  
   public static void doDeleteQuotation(ArrayList<Quotation> QuotationList, String QuotationID) {
 	String RID="";
 	String OID="";
@@ -219,35 +239,21 @@ public class C206CaseStudy {
 	double quotationAmt=0.0;
         
   for(int q = 1;q <=QuotationList.size();q++) {
-      if(QuotationList.get(q).getQuotation_ID().equalsIgnoreCase(QuotationID)){
-    
-    	  RID= QuotationList.get(q).getRequest_ID();
-    	
-    	   OID= QuotationList.get(q).getQuotation_ID();
-    	
-    	  Category= QuotationList.get(q).getRenovation_Category();
-    	 
-    	 description= QuotationList.get(q).getDescription();
-    	
-    	 Designer_name= QuotationList.get(q).getDesi_Name();
-    	 
+      if(QuotationList.get(q).getQuotation_ID().equalsIgnoreCase(QuotationID)){    
+    	  RID= QuotationList.get(q).getRequest_ID();    	
+    	   OID= QuotationList.get(q).getQuotation_ID();    	
+    	  Category= QuotationList.get(q).getRenovation_Category();    	 
+    	 description= QuotationList.get(q).getDescription();    	
+    	 Designer_name= QuotationList.get(q).getDesi_Name();    	 
     	   date1= QuotationList.get(q).getEarliest_Start_Date();
-    
     	 quotationAmt= QuotationList.get(q).getTotal_Quotation_amt();
-    	 
-    	 
-    	  
       }
     }
   Quotation a = new Quotation(RID, OID, Category, description, Designer_name, date1, quotationAmt);
   QuotationList.remove(a);
 
   } // Done by Elson
-  
-  
-  public static ArrayList<Quotation> getQuotation(){
-	  return QuotationList;
-  }
+
   public static void addPackage(ArrayList<Package> PackageList, Package P) {
 	  PackageList.add(P);
   }
