@@ -6,7 +6,7 @@ public class User {
 	private String Email;
 	private String Password;
 	private String Status;
-
+	
 	public User(String name, String role, String email, String password, String status) {
 		this.Name = name;
 		this.Role = role;
@@ -55,4 +55,7 @@ public class User {
 		Status = status;
 	}
 
+	
+	
 }
+
