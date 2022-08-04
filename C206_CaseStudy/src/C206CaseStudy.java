@@ -275,8 +275,57 @@ public class C206CaseStudy {
   QuotationList.remove(a);
 
   } // Done by Elson
-
+  
+  public static Package inputPackage() {
+	  String ID = Helper.readString("Enter ID > ");
+	  String des = Helper.readString("Enter description > ");
+	  String startDate = Helper.readString("Enter start date (yyyy-mm-dd) > ");
+	  LocalDate startDate1 = LocalDate.parse(startDate);
+	  String endDate = Helper.readString("Enter end date (yyyy-mm-dd) > ");
+	  LocalDate endDate1 = LocalDate.parse(endDate);
+	  double amt = Helper.readDouble("Enter package amount >");
+	  
+	  Package P = new Package(ID, des, startDate1, endDate1, amt);
+	  return P;
+  }
+  
   public static void addPackage(ArrayList<Package> PackageList, Package P) {
 	  PackageList.add(P);
+  }
+  
+  public static String retrieveAllPackage(ArrayList<Package> PackageList) {
+	  String output = "";
+	  for (int i = 0; i < PackageList.size(); i++) {
+		  output += String.format("%-84s\n", PackageList.get(i).toString());
+	  }
+	  return output;
+  }
+  
+  public static void viewAllPackage(ArrayList<Package> PackageList) {
+	  C206CaseStudy.setHeader("PACKAGE LIST");
+	  String output = String.format("%-10s %-30s %-10s %-20s", "ID", "DESCRIPTION", "START DATE", "END DATE",
+			  "PACKAGE AMOUNT");
+	  output += retrieveAllPackage(PackageList);
+	  System.out.println(output);
+  }
+  
+  public static void deletePackage(ArrayList<Package> PackageList, String packageCode) {
+		String ID = "";
+		String des = "";
+		LocalDate startDate1 = null;
+		LocalDate endDate1 = null;
+		double amt = 0.0;
+	        
+	  for(int i = 1; i <=PackageList.size(); i++) {
+	      if(PackageList.get(i).getPackageCode().equalsIgnoreCase(ID)){    
+	    	  ID = PackageList.get(i).getPackageCode();    	   	  	 
+	    	 des = PackageList.get(i).getPackageDes();    	 
+	    	   startDate1 = PackageList.get(i).getStartDate();
+	    	   endDate1 = PackageList.get(i).getEndDate();
+	    	 amt = PackageList.get(i).getPackageAmount();
+	      }
+	  }
+	  Package p = new Package(ID, des, startDate1, endDate1, amt);
+	  PackageList.remove(p);
   }
 }

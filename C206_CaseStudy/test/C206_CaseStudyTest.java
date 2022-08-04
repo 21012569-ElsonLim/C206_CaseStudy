@@ -201,4 +201,39 @@ public class C206_CaseStudyTest extends C206CaseStudy {
     	assertSame("Test that Package is added same as 3rd package of the list?", P3, PackageList.get(2));
     } // Done by Cong Lin
     
+  //=======================View Package ===========================================================
+    public void testRetrieveAllPackage() {
+    	// Test if Package list is not null but empty, so that can add a new package
+    	assertNotNull("Test if there is valid Package arraylist to add to", PackageList);
+    			
+    	//test if the list of Package retrieved from the CaseStudy is empty
+    	String allPackage= C206CaseStudy.retrieveAllPackage(PackageList);
+    	String testOutput = "";
+    	assertEquals("Check that ViewAllPackagelist", testOutput, allPackage);
+    					
+    	//Given an empty list, after adding 2 packages, test if the size of the list is 2
+    	C206CaseStudy.addPackage(PackageList, P1);
+    	C206CaseStudy.addPackage(PackageList, P2);
+    	assertEquals("Test if that Package arraylist size is 2?", 2, PackageList.size());
+    			
+    	//test if the expected output string same as the list of packages retrieved from the CaseStudy
+    	allPackage= C206CaseStudy.retrieveAllPackage(PackageList);
+
+    	testOutput = String.format("%-10s %-30s %-10s %-10s %-20d\n", "P101", "Shiny Kitchen", "2015-10-03", "2015-10-07", 400);
+    	testOutput += String.format("%-10s %-30s %-10s %-10s %-20d\n", "P102", "Small BedRoom", "2012-01-12", "2012-01-18", 500);
+    		
+    	assertEquals("Check that ViewAllPackagelist", testOutput, allPackage);
+    }
+    
+    public void testDeletePackage() {
+        assertNotNull("Test if there is Package arraylist to add to", PackageList);
+        PackageList.add(P1);
+        PackageList.add(P2);
+        assertEquals(2, PackageList.size());
+        PackageList.remove(0);
+        assertEquals(1, PackageList.size());
+        PackageList.remove(0);
+        assertTrue(PackageList.isEmpty());
+    }
+    
 }
