@@ -8,7 +8,7 @@ public class C206CaseStudy {
   
   private static final ArrayList<Quotation> QuotationList= new  ArrayList<Quotation>();
   private static final ArrayList<Quotation> requestedQuotationList = new ArrayList<Quotation>();
-
+  private static final ArrayList<Package> PackageList = new ArrayList<Package>();
   
   
   public static void main(String[] args) {
@@ -25,6 +25,13 @@ public class C206CaseStudy {
     requestedQuotationList.add(new Quotation("HDB",100.25,"James",91234567,"James@gmail.com",1000.10,p4,2,0,"",false));
     requestedQuotationList.add(new Quotation("Private",200.25,"Jacob",98765432,"Jacob@hotmail.com",200.20,p5,1,1,"",true));
     requestedQuotationList.add(new Quotation("Landed",300.25,"Cody",91827364,"Cody@yahoo.com",300.30,p6,0,2,"",true));
+    
+    LocalDate e1 = LocalDate.parse("2015-10-07"); //End Date
+    LocalDate e2 = LocalDate.parse("2012-01-18");
+    LocalDate e3 = LocalDate.parse("2010-05-19");
+    PackageList.add(new Package("P101", "Shiny Kitchen", p1, e1, 400));
+    PackageList.add(new Package("P102", "Small BedRoom", p2, e2, 500));
+    PackageList.add(new Package("P103", "Big Bedroom", p3, e3, 600));
     
     int logonChoice = -1;
     while (logonChoice != 3) {
