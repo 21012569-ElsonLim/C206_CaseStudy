@@ -9,6 +9,7 @@ public class C206CaseStudy {
   private static final ArrayList<Quotation> QuotationList= new  ArrayList<Quotation>();
   private static final ArrayList<Quotation> requestedQuotationList = new ArrayList<Quotation>();
   private static final ArrayList<Package> PackageList = new ArrayList<Package>();
+  private static final ArrayList<User> UserList = new ArrayList<User>(); 
   
   
   public static void main(String[] args) {
@@ -33,63 +34,135 @@ public class C206CaseStudy {
     PackageList.add(new Package("P102", "Small BedRoom", p2, e2, 500));
     PackageList.add(new Package("P103", "Big Bedroom", p3, e3, 600));
     
+    UserList.add(new User("John", "Admin", "John@gmail.com", "JohnAdmin123", true));
+	UserList.add(new User("Mary", "Customer", "Mary@gmail.com", "Mary456", true));
+	UserList.add(new User("Tom", "Designer", "Tom@gmail.com", "TomDesign789", true));
+    
     int logonChoice = -1;
+    int customerChoice = -1;
+    int StaffChoice = -1;
+    
     while (logonChoice != 3) {
       logon_menu();
       logonChoice = Helper.readInt("Choice > ");
       if (logonChoice == 1) {
-        String correctCustomerUsername = ""; //Related to Jasrene's topic
-        String correctCustomerPassword = ""; //Related to Jasrene's topic
-        String enteredUsername = ""; //Related to Jasrene's topic
-        String enteredPassword = ""; //Related to Jasrene's topic
-        
-        while (correctCustomerUsername.equals(enteredUsername) && correctCustomerPassword.equals(enteredPassword)) {
-          int customerChoice = -1;
-          while (customerChoice != 4) {
-            customer_menu();
-            customerChoice = Helper.readInt("Choice > ");
-            if (customerChoice == 1) {
-              
-            } else if (customerChoice == 2) {
-              
-            } else if (customerChoice == 3) {
-              
-            } else if (customerChoice == 4) {
-              System.out.println("Logging Out");
-            } else {
-              System.out.println("Invalid Option");
-            }
-          }
+        String enteredUsername = "";
+        String enteredPassword = "";
+        for (User i : UserList) {
+        	enteredUsername = Helper.readString("Enter Username > ");
+        	enteredPassword = Helper.readString("Enter Password > ");
+        if (i.getName().equals(enteredUsername) && i.getPassword().equals(enteredPassword) && i.getRole().equalsIgnoreCase("Customer")) {
+        	
+        	while (customerChoice != 3) {
+        		customer_menu();
+        		customerChoice = Helper.readInt("Choice > ");
+        		if (customerChoice == 1) {
+        			addUser(UserList,inputUser());
+        		} else if (customerChoice == 2) {
+        			addRequestQuotation(requestedQuotationList,inputRequestQuotation());
+        		} else if (customerChoice == 3) {
+        			System.out.println("Logging Out");
+        		} else {
+        			System.out.println("Invalid Option");
+        			}
+        		}
+        	customerChoice = -1;
+        	break;
+        	} else {
+        		System.out.println("Invalid Username or Password, please try again.");
+        	}
         }
         
-      } else if (logonChoice == 2) { // THIS IS UNDONE - Jun Cheng
-        String correctStaffUsername = ""; //Related to Jasrene's topic
-        String correctStaffPassword = ""; //Related to Jasrene's topic
-        String enteredUsername = ""; //Related to Jasrene's topic
-        String enteredPassword = ""; //Related to Jasrene's topic
-        enteredUsername = Helper.readString("Username > ");
-        enteredPassword = Helper.readString("Password > ");
-        while (correctStaffUsername.equals(enteredUsername) && correctStaffPassword.equals(enteredPassword)) {
-          int StaffChoice = -1;
-          while (StaffChoice != 6) {
-            staff_menu();
-            StaffChoice = Helper.readInt("Choice > ");
-            if (StaffChoice == 1) {
-              
-            } else if (StaffChoice == 2) {
-              
-            } else if (StaffChoice == 3) {
-              
-            } else if (StaffChoice == 4) {
-              
-            } else if (StaffChoice == 5) {
-              
-            } else if (StaffChoice == 6) {
-              System.out.println("Logging Out");
-            } else {
-              System.out.println("Invalid Option");
-            }
-          }
+      	} else if (logonChoice == 2) {
+        String enteredUsername = "";
+        String enteredPassword = "";
+        for (User x : UserList) {
+        	enteredUsername = Helper.readString("Username > ");
+        	enteredPassword = Helper.readString("Password > ");
+        	if (x.getName().equals(enteredUsername) && x.getPassword().equals(enteredPassword) && (x.getRole().equalsIgnoreCase("Admin") || x.getRole().equalsIgnoreCase("Designer"))) {
+        		while (StaffChoice != 5) {
+        			staff_menu();
+        			StaffChoice = Helper.readInt("Choice > ");
+        			if (StaffChoice == 1) {
+        				int manageCustomer = -1;
+        				while (manageCustomer != 3) {
+        					manageCustomerMenu();
+        					manageCustomer = Helper.readInt("Choice > ");
+        					if (manageCustomer == 1) {
+        						viewAllUser(UserList);
+        					} else if (manageCustomer == 2) {
+        						addUser(UserList,inputUser());
+        					} else if (manageCustomer == 3) {
+        						System.out.println("Going Back");
+        					}else {
+        						System.out.println("Invalid Option");
+        					}
+        				}	
+        			} else if (StaffChoice == 2) {
+        				int managePackage = -1;
+        				while (managePackage != 3) {
+        					managePackageMenu();
+        					managePackage = Helper.readInt("Choice > ");
+        					if (managePackage == 1) {
+        						viewAllPackage(PackageList);
+        					} else if (managePackage == 2) {
+        						addPackage(PackageList,inputPackage());
+        					} else if (managePackage == 3) {
+        						String code = Helper.readString("Enter Code > ");
+        						deletePackage(PackageList,code);
+        					} else if (managePackage == 4) {
+        						System.out.println("Going Back");
+        					}else {
+        						System.out.println("Invalid Option");
+        					}
+        				}
+        			} else if (StaffChoice == 3) {
+        				int manageRequestedQuotation = -1;
+                    	while (manageRequestedQuotation != 4) {
+                    		manageRequestQuotationMenu();
+                    		manageRequestedQuotation = Helper.readInt("Choice > ");
+                    		if (manageRequestedQuotation == 1) {
+                    			viewAllRequestedQuotation(requestedQuotationList);
+                    		} else if (manageRequestedQuotation == 2) {
+                    			addRequestQuotation(requestedQuotationList,inputRequestQuotation());
+                    		} else if (manageRequestedQuotation == 3) {
+                    			String customerName = Helper.readString("Enter customer name > ");
+                    			doDeleteRequestedQuotation(requestedQuotationList,customerName);
+                    		}  else if (manageRequestedQuotation == 4) {
+                    			System.out.println("Going Back");
+                    		} else {
+                    			System.out.println("Invalid Option");
+                    		}
+                    	}
+        			} else if (StaffChoice == 4) {
+        				int manageQuotation = -1;
+                    	while (manageQuotation != 4) {
+                    		manageQuotationMenu();
+                    		manageQuotation = Helper.readInt("Choice > ");
+                    		if (manageQuotation == 1) {
+                    			viewAllQuotation(QuotationList);
+                    		} else if (manageQuotation == 2) {
+                    			addQuotation(QuotationList,inputQuotation());
+                    		} else if (manageQuotation == 3) {
+                    			String quotationId = Helper.readString("Enter quotation ID > ");
+                    			doDeleteQuotation(QuotationList,quotationId);
+                    		} else if (manageQuotation == 4) {
+                    			System.out.println("Going Back");
+                    		} else {
+                    			System.out.println("Invalid Option");
+                    		}
+                    	}
+        			} else if (StaffChoice == 5) {
+        				System.out.println("Logging Out");
+        			} else {
+        				System.out.println("Invalid Option");
+        			}
+        		}
+        		StaffChoice = -1;
+        		break;
+        	} else {
+        		System.out.println("Invalid Username or Password, please try again.");
+        	}
         }
         
       } else if (logonChoice == 3){
@@ -103,21 +176,49 @@ public class C206CaseStudy {
   
   
   public static void customer_menu() {
-    C206CaseStudy.setHeader("C206 Centre Customer Page");
-    System.out.println("1. Visitor Account Registration");
-    System.out.println("2. Request to Quotation");
-    System.out.println("3. Manage Appointment");
-    System.out.println("4. Log Out");
+	  C206CaseStudy.setHeader("C206 Centre Customer Page");
+	  System.out.println("1. Visitor Account Registration");
+	  System.out.println("2. Request to Quotation");
+	  System.out.println("3. Log Out");
   }
   
   public static void staff_menu() {
-    C206CaseStudy.setHeader("C206 Centre Administrator Page");
-    System.out.println("1. Manage Customer");
-    System.out.println("2. Manage Package");
-    System.out.println("3. Manage Request Quotation");
-    System.out.println("4. Manage Quotation");
-    System.out.println("5. Manage Appointment");
-    System.out.println("6. Log Out");
+	  C206CaseStudy.setHeader("C206 Centre Staff Page");
+	  System.out.println("1. Manage Customer");
+	  System.out.println("2. Manage Package");
+	  System.out.println("3. Manage Request Quotation");
+	  System.out.println("4. Manage Quotation");
+	  System.out.println("5. Log Out");
+  }
+  
+  public static void manageQuotationMenu() {
+	  C206CaseStudy.setHeader("Manage Quotation");
+	  System.out.println("1. View Quotation");
+	  System.out.println("2. Add Quotation");
+	  System.out.println("3. Delete Quotation");
+	  System.out.println("4. Exit");
+  }
+  
+  public static void manageRequestQuotationMenu() {
+	  C206CaseStudy.setHeader("Manage Request Quotation");
+	  System.out.println("1. View Request Quotation");
+	  System.out.println("2. Add Request Quotation");
+	  System.out.println("3. Delete Request Quotation");
+	  System.out.println("4. Exit");
+  }
+  
+  public static void manageCustomerMenu() {
+	  C206CaseStudy.setHeader("Manage Customer");
+	  System.out.println("1. View All User");
+	  System.out.println("2. Add User");
+	  System.out.println("3. Exit");
+  }
+  
+  public static void managePackageMenu() {
+	  C206CaseStudy.setHeader("Manage Package");
+	  System.out.println("1. View All Package");
+	  System.out.println("2. Add New Package");
+	  System.out.println("3. Delete Package");
   }
   
   public static void logon_menu() {
@@ -127,117 +228,196 @@ public class C206CaseStudy {
     System.out.println("3. Quit");
   }
   
-  
-  
   public static void setHeader(String Header) {
     Helper.line(80, "=");
     System.out.println(Header);
     Helper.line(80, "=");
   }
 
-  
-  
-  
-  
-  
-  
-  
-
-
-
-
   public static String retrieveAllQuotation(ArrayList<Quotation> QuotationList) {
-    // TODO Auto-generated method stub
-    String output1 = "";
+	  String output1 = "";
 
-  
-    
-    for (int x = 0; x < QuotationList.size(); x++) {
- double d1=QuotationList.get(x).getTotal_Quotation_amt();
- String Quotationamt=Double.toString(d1);
-   LocalDate x1=QuotationList.get(x).getEarliest_Start_Date();
-   String updatedDate=x1.toString();
-      output1 += String.format("%-10s %-30s %-10s %-10s %-20s %-20s\n", QuotationList.get(x).getRequest_ID(),
+	  for (int x = 0; x < QuotationList.size(); x++) {
+		  double d1=QuotationList.get(x).getTotal_Quotation_amt();
+		  String Quotationamt=Double.toString(d1);
+		  LocalDate x1=QuotationList.get(x).getEarliest_Start_Date();
+		  String updatedDate=x1.toString();
+		  output1 += String.format("%-10s %-30s %-10s %-10s %-20s %-20s\n", QuotationList.get(x).getRequest_ID(),
           QuotationList.get(x).getQuotation_ID(), 
           QuotationList.get(x).getRenovation_Category(),QuotationList.get(x).getDescription(),QuotationList.get(x).getDesi_Name()
           ,updatedDate,Quotationamt);
-    }
-    return output1;
-  }
+	  }
+	  return output1;
+  } // Done by Elson
+  
+  public static void viewAllQuotation(ArrayList<Quotation>QuotationList) {
+	  C206CaseStudy.setHeader("Quotation List");
+	  String output = String.format("%-10s %-30s %-10s %-35s %-20s %-15s %-20s\n", "REQUESTID", "QUOTATION",
+	  "RENOVATIONCATEGORY", "DESCRIPTION","DESIGNER NAME ","EARLIEST START DATE ","TOTAL QUOTATION AMOUNT ");
+    
+      output += retrieveAllQuotation(QuotationList);
+      System.out.println(output);
+  } // Done by Elson
+  
+  public static Quotation inputQuotation() {
+	  String RequestID = Helper.readString("Enter asset tag > ");
+	  String QuotationID = Helper.readString("Enter Quotation ID > ");
+	  String renovationCat = Helper.readString("Enter renovationCat > ");
+	  String desiName = Helper.readString("Enter Designer name  > ");
+	  String Description = Helper.readString("Enter description > ");
+	  String earliestStartDate = Helper.readString("Enter earliest Start Date > ");
+	  double TotalQuotationamt = Helper.readDouble("Enter Total Amount  > ");
+  
+	  DateTimeFormatter x= DateTimeFormatter.ofPattern("dd/MM/yyyy");
+ 	  LocalDate date=LocalDate.parse(earliestStartDate, x);
+
+ 	  Quotation Q3= new Quotation(RequestID, QuotationID, renovationCat,desiName,Description,date,TotalQuotationamt);
+ 	  return Q3;
+  } // Done by Elson
+  
+  public static void addQuotation(ArrayList<Quotation> QuotationList, Quotation x) {
+
+	  QuotationList.add(x);
+  } // Done by Elson
+  
+  public static void doDeleteQuotation(ArrayList<Quotation> QuotationList, String QuotationID) {
+	  String RID="";
+	  String OID="";
+	  String Category="";
+	  String description="";
+	  String Designer_name="";
+	  LocalDate date1=null;
+	  double quotationAmt=0.0;
+        
+	  for(int q = 1;q <=QuotationList.size();q++) {
+		  if(QuotationList.get(q).getQuotation_ID().equalsIgnoreCase(QuotationID)){    
+			  RID= QuotationList.get(q).getRequest_ID();    	
+			  OID= QuotationList.get(q).getQuotation_ID();    	
+			  Category= QuotationList.get(q).getRenovation_Category();    	 
+			  description= QuotationList.get(q).getDescription();    	
+			  Designer_name= QuotationList.get(q).getDesi_Name();    	 
+			  date1= QuotationList.get(q).getEarliest_Start_Date();
+			  quotationAmt= QuotationList.get(q).getTotal_Quotation_amt();
+		  }
+	  }
+	  Quotation a = new Quotation(RID, OID, Category, description, Designer_name, date1, quotationAmt);
+	  QuotationList.remove(a);
+
+  } // Done by Elson
   
   public static String retrieveAllRequestedQuotation(ArrayList<Quotation> requestedQuotationList) {
+	  System.out.println("1. HDB");
+	  System.out.println("2. Private");
+	  System.out.println("3. Landed");
+	  int question = Helper.readInt("Property Type > ");
+	  String choice = null;
+	  if (question == 1) {
+		  choice = "HDB";
+	  } else if (question == 2) {
+		  choice = "Private";
+	  } else if (question == 3) {
+		  choice = "Landed";
+	  } else {
+		System.out.println("Invalid Option");
+	  }
 	  String output = "";  
-	  for (Quotation i : requestedQuotationList) {
-	    	 String propertyType = i.getPropertyType();
-	    	 String areaSize = Double.toString(i.getAreaType());    	
-	    	 String requestorName = i.getrequestorName();    	 
-	    	 String customerContactNum = i.getcustomerContactNum() + "";    	
-	    	 String customerEmail = i.getCustomerEmail();    	 
-	    	 String budget = i.getbudget() + "";
-	    	 String targetCompletionDate = i.getTargetCompletionDate() + "";
-	    	 String roomToRenovate = i.getRoomToRenovate() + "";
-	    	 String toiletToRenovate = i.getToiletToRenovate() + "";
-	    	 String renovationStyle = i.getRenovationStyle();
-	    	 String urgentRequest = i.getUrgentRequest() + "";
-	    	 output += String.format("%-20s %-20s %-30s %-30s %-30s %-30s %-30s %-30s %-30s %-30s %-30s\n",
-	    			propertyType,areaSize,requestorName,customerContactNum,customerEmail,budget,
-	    			targetCompletionDate,roomToRenovate,toiletToRenovate,renovationStyle,urgentRequest);
-	    }
+		  for (Quotation i : requestedQuotationList) {
+			  if (i.getPropertyType().equalsIgnoreCase(choice)) {
+			  	String propertyType = i.getPropertyType();
+		    	 String areaSize = Double.toString(i.getAreaSize());    	
+		    	 String requestorName = i.getrequestorName();    	 
+		    	 String customerContactNum = i.getcustomerContactNum() + "";    	
+		    	 String customerEmail = i.getCustomerEmail();    	 
+		    	 String budget = i.getbudget() + "";
+		    	 String targetCompletionDate = i.getTargetCompletionDate() + "";
+		    	 String roomToRenovate = i.getRoomToRenovate() + "";
+		    	 String toiletToRenovate = i.getToiletToRenovate() + "";
+		    	 String renovationStyle = i.getRenovationStyle();
+		    	 String urgentRequest = i.getUrgentRequest() + "";
+		    	 output += String.format("%-20s %-20s %-20s %-20s %-20s %-20s %-20s"
+		    	 		+ " %-20s %-20s %-20s %-20s\n",
+		    			propertyType,areaSize,requestorName,customerContactNum,customerEmail,budget,
+		    			targetCompletionDate,roomToRenovate,toiletToRenovate,renovationStyle,urgentRequest);
+		  	}
+		  }
 	    return output;
 	  } // Done by Jun Cheng
   
-  public static void viewAllQuotation(ArrayList<Quotation>QuotationList) {
-    C206CaseStudy.setHeader("Quotation List");
-    String output = String.format("%-10s %-30s %-10s %-35s %-20s %-15s %-20s\n", "REQUESTID", "QUOTATION",
-        "RENOVATIONCATEGORY", "DESCRIPTION","DESIGNER NAME ","EARLIEST START DATE ","TOTAL QUOTATION AMOUNT ");
-    
-     output += retrieveAllQuotation(QuotationList);
-    System.out.println(output);
-  } // Done by Elson
-
-  
-  
-  
-  public static Quotation inputQuotation() {
-    String RequestID = Helper.readString("Enter asset tag > ");
-    String QuotationID = Helper.readString("Enter Quotation ID > ");
-    String renovationCat = Helper.readString("Enter renovationCat > ");
-    String desiName = Helper.readString("Enter Designer name  > ");
-    String Description = Helper.readString("Enter description > ");
-    String earliestStartDate = Helper.readString("Enter earliest Start Date > ");
-    double TotalQuotationamt = Helper.readDouble("Enter Total Amount  > ");
-  
-    DateTimeFormatter x= DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    LocalDate date=LocalDate.parse(earliestStartDate, x);
-
-    Quotation Q3= new Quotation(RequestID, QuotationID, renovationCat,desiName,Description,date,TotalQuotationamt);
-    return Q3;
-  }
-  
-  
-  
-  
-  
-  public static void addRequestQuotation(ArrayList<Quotation> requestedQuotationList, Quotation x) {
-	  
-	  requestedQuotationList.add(x);
-	  
-  } // Done by Jun Cheng #1
-  
   public static void viewAllRequestedQuotation(ArrayList<Quotation> requestedQuotationList) {
 	  C206CaseStudy.setHeader("Requested Quotation List");
-	    String output = String.format("%-10s %-30s %-10s %-35s %-20s %-15s %-20s\n", "REQUESTID", "QUOTATION",
-	        "RENOVATIONCATEGORY", "DESCRIPTION","DESIGNER NAME ","EARLIEST START DATE ","TOTAL QUOTATION AMOUNT ");
-	    
-	     output += retrieveAllQuotation(requestedQuotationList);
+	    String output = String.format("%-20s %-20s %-20s %-20s %-20s %-20s %-20s" +
+ 	    		 "%-20s %-20s %-20s %-20s\n", "PROPERTY TYPE", "AREA SIZE",
+	        "REQUESTOR NAME", "CONTACT NUMBER","EMAIL","BUDGET","TARGET DATE","ROOMS",
+	        "TOILETS","STYLE","URGENT");
+	    if (retrieveAllRequestedQuotation(requestedQuotationList).length() > 0) {
+	     output += retrieveAllRequestedQuotation(requestedQuotationList);
+	    } else {
+	    	System.out.println("No Data found");
+	    }
 	    System.out.println(output);
-  } // Done by Jun Cheng #2
+  } // Done by Jun Cheng
   
+  public static Quotation inputRequestQuotation() {
+	  boolean validation = true;
+	  String propertyType = Helper.readString("Enter property type > ");
+	  double areaSize = Helper.readDouble("Enter area size > ");
+	  String requestorName = Helper.readString("Enter your name > ");
+	  int customerContactNum = Helper.readInt("Enter your mobile number > ");
+	  String customerEmail = Helper.readString("Enter your email > ");
+	  double budget = Helper.readDouble("Enter your budget > ");
+	  String questiontargetCompletionDate = Helper.readString("Enter completion date > ");
+	  LocalDate targetCompletionDate = null;
+	  String format = "\\d{4}[-]\\d{2}[-]\\d{2}";
+	  if (questiontargetCompletionDate.matches(format)) {
+		  targetCompletionDate = LocalDate.parse(questiontargetCompletionDate);
+		  validation = true;
+	  } else {
+		  System.out.println("Wrong Format");
+	  }
+	  int roomToRenovate = Helper.readInt("Enter amount of rooms > ");
+	  int toiletToRenovate = Helper.readInt("Enter amount of toilets > ");
+	  String renovationStyle = Helper.readString("Enter renovation style (optional) > ");
+	  String questionurgentRequest = Helper.readString("Urgent (Y/N)> ");
+	  Boolean urgentRequest = null;
+	  if (questionurgentRequest.equalsIgnoreCase("Y")) {
+		  urgentRequest = true;
+	  } else if (questionurgentRequest.equalsIgnoreCase("N")) {
+		  urgentRequest = false;
+	  }
+	  if (propertyType.length() == 0 || areaSize <= 0 || requestorName.length() == 0 ||
+	      customerContactNum <= 0 || customerEmail.length() == 0 || budget <= 0 ||
+	      targetCompletionDate == null || roomToRenovate < 0 || toiletToRenovate < 0 || 
+	      urgentRequest == null) {
+		  validation = false;
+	  } // To check if mandatory fields are not left blank 
+	
+	  Quotation requesting = null;
+	  if (validation == true) {
+	  requesting = new Quotation(propertyType,areaSize,requestorName,
+	  customerContactNum,customerEmail,budget,targetCompletionDate,roomToRenovate,
+	  toiletToRenovate,renovationStyle,urgentRequest);
+	  } else {
+		  System.out.println("Mandatory fields are not filled in.");
+	  }
+	  return requesting;
+  } // Done by Jun Cheng
+  
+  public static void addRequestQuotation(ArrayList<Quotation> requestedQuotationList, Quotation x) {
+	  if (x != null) {
+		  requestedQuotationList.add(x);
+		  System.out.println("Successfully Requested");
+	  } else {
+		  System.out.println("Failed to Add Request");
+	  }
+	  
+  } // Done by Jun Cheng
+
   public static void doDeleteRequestedQuotation(ArrayList<Quotation> requestedQuotationList, String RequestorName) {
+	  Quotation removing = null;
 	  for(Quotation i : requestedQuotationList) {
-	      if(i.getrequestorName().equalsIgnoreCase(RequestorName)){    
+	      if(i.getrequestorName().equalsIgnoreCase(RequestorName)){  
 	    	  String propertyType = i.getPropertyType();
-	    	  double areaSize = i.getAreaType();    	
+	    	  double areaSize = i.getAreaSize();    	
 	    	  String requestorName = i.getrequestorName();    	 
 	    	  int customerContactNum = i.getcustomerContactNum();    	
 	    	  String customerEmail = i.getCustomerEmail();    	 
@@ -247,41 +427,37 @@ public class C206CaseStudy {
 	    	  int toiletToRenovate = i.getToiletToRenovate();
 	    	  String renovationStyle = i.getRenovationStyle();
 	    	  boolean urgentRequest = i.getUrgentRequest();
-	    	  Quotation removing = new Quotation(propertyType,areaSize,requestorName,customerContactNum,customerEmail,budget,targetCompletionDate,roomToRenovate,toiletToRenovate,renovationStyle,urgentRequest);
-	    	  requestedQuotationList.remove(removing);
+	    	  removing = new Quotation(propertyType,areaSize,requestorName,customerContactNum,
+	    			  customerEmail,budget,targetCompletionDate,roomToRenovate,toiletToRenovate,renovationStyle,
+	    			  urgentRequest);
 	      }
 	    }
-  } // Done by Jun Cheng #3
-
-  public static void addQuotation(ArrayList<Quotation> QuotationList, Quotation x) {
-
-    QuotationList.add(x);
-  } // Done by Elson
-
-  public static void doDeleteQuotation(ArrayList<Quotation> QuotationList, String QuotationID) {
-	String RID="";
-	String OID="";
-	String Category="";
-	String description="";
-	String Designer_name="";
-	LocalDate date1=null;
-	double quotationAmt=0.0;
-        
-  for(int q = 1;q <=QuotationList.size();q++) {
-      if(QuotationList.get(q).getQuotation_ID().equalsIgnoreCase(QuotationID)){    
-    	  RID= QuotationList.get(q).getRequest_ID();    	
-    	   OID= QuotationList.get(q).getQuotation_ID();    	
-    	  Category= QuotationList.get(q).getRenovation_Category();    	 
-    	 description= QuotationList.get(q).getDescription();    	
-    	 Designer_name= QuotationList.get(q).getDesi_Name();    	 
-    	   date1= QuotationList.get(q).getEarliest_Start_Date();
-    	 quotationAmt= QuotationList.get(q).getTotal_Quotation_amt();
-      }
-    }
-  Quotation a = new Quotation(RID, OID, Category, description, Designer_name, date1, quotationAmt);
-  QuotationList.remove(a);
-
-  } // Done by Elson
+	  if (removing != null) {
+		  System.out.println("Property Type: " + removing.getPropertyType());
+		  System.out.println("Area Size: " + removing.getAreaSize());
+		  System.out.println("Name: " + removing.getrequestorName());
+		  System.out.println("Contact Number: " + removing.getcustomerContactNum());
+		  System.out.println("Email: " + removing.getCustomerEmail());
+		  System.out.println("Budget: " + removing.getbudget());
+		  System.out.println("By: " + removing.getTargetCompletionDate());
+		  System.out.println("Rooms: " + removing.getRoomToRenovate());
+		  System.out.println("Toilets: " + removing.getToiletToRenovate());
+		  System.out.println("Style: " + removing.getRenovationStyle());
+		  System.out.println("Urgent: " + removing.getUrgentRequest());
+		  String question = Helper.readString("Are you sure (Y/N)> ");
+		  if (question.equalsIgnoreCase("y")) {
+			  requestedQuotationList.remove(removing);
+			  System.out.println("Delete Successful");
+		  } else if (question.equalsIgnoreCase("n")) {
+			  System.out.println("Delete Failed");
+		  } else {
+			 System.out.println("Enter either 'Y' or 'N', Delete failed.");
+		  }
+	  } else {
+		  System.out.println("There is no such data found.");
+	  }
+	  
+  } // Done by Jun Cheng
   
   public static Package inputPackage() {
 	  String ID = Helper.readString("Enter ID > ");
@@ -294,11 +470,11 @@ public class C206CaseStudy {
 	  
 	  Package P = new Package(ID, des, startDate1, endDate1, amt);
 	  return P;
-  }
+  } // Done by Cong Lin
   
   public static void addPackage(ArrayList<Package> PackageList, Package P) {
 	  PackageList.add(P);
-  }
+  } // Done by Cong Lin
   
   public static String retrieveAllPackage(ArrayList<Package> PackageList) {
 	  String output = "";
@@ -312,7 +488,7 @@ public class C206CaseStudy {
 		  
 	  }
 	  return output;
-  }
+  } // Done by Cong Lin
   
   public static void viewAllPackage(ArrayList<Package> PackageList) {
 	  C206CaseStudy.setHeader("PACKAGE LIST");
@@ -320,7 +496,7 @@ public class C206CaseStudy {
 			  "PACKAGE AMOUNT");
 	  output += retrieveAllPackage(PackageList);
 	  System.out.println(output);
-  }
+  } // Done by Cong Lin
   
   public static void deletePackage(ArrayList<Package> PackageList, String packageCode) {
 		String ID = "";
@@ -340,5 +516,36 @@ public class C206CaseStudy {
 	  }
 	  Package p = new Package(ID, des, startDate1, endDate1, amt);
 	  PackageList.remove(p);
-  }
+  } // Done by Cong Lin
+  
+  public static User inputUser() {
+		String Name = Helper.readString("Enter Name > ");
+		String Role = Helper.readString("Enter Role > ");
+		String Email = Helper.readString("Enter Email > ");
+		String Password = Helper.readString("Enter Password ");
+		boolean Status = true;
+
+		User U = new User(Name, Role, Email, Password, Status);
+		return U;
+	} // Done by Jasrene
+  
+  public static void addUser(ArrayList<User> userList, User U) {
+		UserList.add(U);
+	} // Done by Jasrene
+  
+  private static String retrieveAllUser(ArrayList<User> userList2) {
+		String output = "";
+		for (int i = 0; i < UserList.size(); i++) {
+			output += String.format("%-10s %-30s %-10s %-20b\n", UserList.get(i).getName(), UserList.get(i).getRole(), UserList.get(i).getEmail(), UserList.get(i).getStatus(), UserList.get(i).getStatus());
+		}
+		return output;
+	} // Done by Jasrene
+  
+  public static void viewAllUser(ArrayList<User> UserList) {
+		C206CaseStudy.setHeader("User LIST");
+		String output = String.format("%-10s %-30s %-10s %-20s\n", "NAME", "ROLE", "EMAIL", "STATUS", "PACKAGE AMOUNT");
+		output += retrieveAllUser(UserList);
+		System.out.println(output);
+	} // Done by Jasrene
+
 }

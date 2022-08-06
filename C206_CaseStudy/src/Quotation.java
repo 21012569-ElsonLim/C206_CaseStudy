@@ -84,7 +84,7 @@ public class Quotation {
 		return propertyType;
 	}
 	
-	public double getAreaType() {
+	public double getAreaSize() {
 		return areaSize;
 	}
 	

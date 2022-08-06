@@ -5,9 +5,9 @@ public class User {
 	private String Role;
 	private String Email;
 	private String Password;
-	private String Status;
+	private boolean Status;
 	
-	public User(String name, String role, String email, String password, String status) {
+	public User(String name, String role, String email, String password, boolean status) {
 		this.Name = name;
 		this.Role = role;
 		this.Email = email;
@@ -47,11 +47,11 @@ public class User {
 		Password = password;
 	}
 
-	public String getStatus() {
+	public boolean getStatus() {
 		return Status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(boolean status) {
 		Status = status;
 	
 
