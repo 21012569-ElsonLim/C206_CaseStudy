@@ -529,7 +529,7 @@ public class C206CaseStudy {
 		return U;
 	} // Done by Jasrene
   
-  public static void addUser(ArrayList<User> userList, User U) {
+  public static void addUser(ArrayList<User> UserList, User U) {
 		UserList.add(U);
 	} // Done by Jasrene
   

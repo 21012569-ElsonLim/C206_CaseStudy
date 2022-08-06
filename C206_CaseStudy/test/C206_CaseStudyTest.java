@@ -192,6 +192,22 @@ public class C206_CaseStudyTest extends C206CaseStudy {
       
     } // Done by Jun Cheng
     
+    @Test
+    public void testAddUser() {
+     assertNotNull("Test if there is valid User arraylist to add to", UserList);
+     
+     C206CaseStudy.addUser(UserList, U1);
+     assertEquals("Test if that User ArrayList size is 1?", 1, UserList.size());
+
+     //The item just added is as same as the first item of the list
+     assertSame("Test that User is added same as 1st item of the list?", U1, UserList.get(0));
+     
+    	//Add another User. test The size of the list is 2?
+    	C206CaseStudy.addUser(UserList, U2);
+    	C206CaseStudy.addUser(UserList, U3);
+    	assertEquals("Test that User arraylist size is 3?", 3, UserList.size());
+    	assertSame("Test that User is added same as 3rd user of the list?", U3, UserList.get(2));
+    } // Done by Jasrene
     
   //=======================Add new Package ===========================================================
     @Test
@@ -250,21 +266,6 @@ public class C206_CaseStudyTest extends C206CaseStudy {
         assertTrue(PackageList.isEmpty());
     } // Done by Cong Lin
     
-    @Test
-    public void testAddUser() {
-     assertNotNull("Test if there is valid User arraylist to add to", UserList);
-     
-     C206CaseStudy.addUser(UserList, U1);
-     assertEquals("Test if that User ArrayList size is 1?", 1, UserList.size());
-
-     //The item just added is as same as the first item of the list
-     assertSame("Test that User is added same as 1st item of the list?", U1, UserList.get(0));
-     
-    	//Add another User. test The size of the list is 2?
-    	C206CaseStudy.addUser(UserList, U2);
-    	C206CaseStudy.addUser(UserList, U3);
-    	assertEquals("Test that User arraylist size is 3?", 3, UserList.size());
-    	assertSame("Test that User is added same as 3rd user of the list?", P3, UserList.get(2));
-    } // Done by Jasrene
+    
     
 }
