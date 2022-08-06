@@ -122,7 +122,21 @@ public class C206CaseStudy {
                     		manageRequestQuotationMenu();
                     		manageRequestedQuotation = Helper.readInt("Choice > ");
                     		if (manageRequestedQuotation == 1) {
-                    			viewAllRequestedQuotation(requestedQuotationList);
+                    			System.out.println("1. HDB");
+                    			System.out.println("2. Private");
+                    			System.out.println("3. Landed");
+                    			int question = Helper.readInt("Property Type > ");
+                    			String choice = "";
+                    			if (question == 1) {
+                    				choice = "HDB";
+                    			} else if (question == 2) {
+                    				choice = "Private";
+                    			} else if (question == 3) {
+                    				choice = "Landed";
+                    			} else {
+                    				System.out.println("Invalid Option");
+                    			}
+                    			viewAllRequestedQuotation(requestedQuotationList,choice);
                     		} else if (manageRequestedQuotation == 2) {
                     			addRequestQuotation(requestedQuotationList,inputRequestQuotation());
                     		} else if (manageRequestedQuotation == 3) {
@@ -305,22 +319,8 @@ public class C206CaseStudy {
 
   } // Done by Elson
   
-  public static String retrieveAllRequestedQuotation(ArrayList<Quotation> requestedQuotationList) {
-	  System.out.println("1. HDB");
-	  System.out.println("2. Private");
-	  System.out.println("3. Landed");
-	  int question = Helper.readInt("Property Type > ");
-	  String choice = null;
-	  if (question == 1) {
-		  choice = "HDB";
-	  } else if (question == 2) {
-		  choice = "Private";
-	  } else if (question == 3) {
-		  choice = "Landed";
-	  } else {
-		System.out.println("Invalid Option");
-	  }
-	  String output = "";  
+  public static String retrieveAllRequestedQuotation(ArrayList<Quotation> requestedQuotationList, String choice) {
+	   String output = "";
 		  for (Quotation i : requestedQuotationList) {
 			  if (i.getPropertyType().equalsIgnoreCase(choice)) {
 			  	String propertyType = i.getPropertyType();
@@ -343,14 +343,14 @@ public class C206CaseStudy {
 	    return output;
 	  } // Done by Jun Cheng
   
-  public static void viewAllRequestedQuotation(ArrayList<Quotation> requestedQuotationList) {
+  public static void viewAllRequestedQuotation(ArrayList<Quotation> requestedQuotationList, String choice) {
 	  C206CaseStudy.setHeader("Requested Quotation List");
 	    String output = String.format("%-20s %-20s %-20s %-20s %-20s %-20s %-20s" +
  	    		 "%-20s %-20s %-20s %-20s\n", "PROPERTY TYPE", "AREA SIZE",
 	        "REQUESTOR NAME", "CONTACT NUMBER","EMAIL","BUDGET","TARGET DATE","ROOMS",
 	        "TOILETS","STYLE","URGENT");
-	    if (retrieveAllRequestedQuotation(requestedQuotationList).length() > 0) {
-	     output += retrieveAllRequestedQuotation(requestedQuotationList);
+	    if (retrieveAllRequestedQuotation(requestedQuotationList,choice).length() > 0) {
+	     output += retrieveAllRequestedQuotation(requestedQuotationList,choice);
 	    } else {
 	    	System.out.println("No Data found");
 	    }

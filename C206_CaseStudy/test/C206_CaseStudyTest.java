@@ -158,21 +158,22 @@ public class C206_CaseStudyTest extends C206CaseStudy {
     public void testRetrieveAllRequestedQuotation() {
       assertNotNull("Test if there is a Requested Quotation arraylist to add to", RequestedQuotationList);
       
-      String allRequestedQuotation= C206CaseStudy.retrieveAllRequestedQuotation(RequestedQuotationList);
-      String output = "";
-      assertEquals("Check that ViewAllQuotationlist", output, allRequestedQuotation);
-
       C206CaseStudy.addRequestQuotation(RequestedQuotationList, Q4);
       C206CaseStudy.addRequestQuotation(RequestedQuotationList, Q5);
       C206CaseStudy.addRequestQuotation(RequestedQuotationList, Q6);
       assertEquals("Test if that the Requested Quotation arraylist size is 3?", 3, RequestedQuotationList.size());
       
-      allRequestedQuotation= C206CaseStudy.retrieveAllRequestedQuotation(RequestedQuotationList);
-
-      output += String.format("%-20s %-20s %-30s %-30s %-30s %-30s %-30s %-30s %-30s %-30s %-30s\n","HDB","100.25","James","91234567","James@gmail.com","1000.1","2016-11-20","2","0","","false");
-      output += String.format("%-20s %-20s %-30s %-30s %-30s %-30s %-30s %-30s %-30s %-30s %-30s\n","Private","200.25","Jacob","98765432","Jacob@hotmail.com","200.2","2016-02-13","1","1","","true");
-      output += String.format("%-20s %-20s %-30s %-30s %-30s %-30s %-30s %-30s %-30s %-30s %-30s\n","Landed","300.25","Cody","91827364","Cody@yahoo.com","300.3","2016-06-16","0","2","","true");
-      assertEquals("Check that ViewAllQuotationlist",output,allRequestedQuotation);
+      String allRequestedQuotation1 = C206CaseStudy.retrieveAllRequestedQuotation(RequestedQuotationList,"HDB");
+      String outputHDB = String.format("%-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s\n","HDB","100.25","James","91234567","James@gmail.com","1000.1","2016-11-20","2","0","","false");
+      assertEquals("Check that ViewAllQuotationlist",outputHDB,allRequestedQuotation1);
+      
+      String allRequestedQuotation2 = C206CaseStudy.retrieveAllRequestedQuotation(RequestedQuotationList,"Private");
+      String outputPrivate = String.format("%-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s\n","Private","200.25","Jacob","98765432","Jacob@hotmail.com","200.2","2016-02-13","1","1","","true");
+      assertEquals("Check that ViewAllQuotationlist",outputPrivate,allRequestedQuotation2);
+      
+      String allRequestedQuotation3 = C206CaseStudy.retrieveAllRequestedQuotation(RequestedQuotationList,"Landed");
+      String outputLanded = String.format("%-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s %-20s\n","Landed","300.25","Cody","91827364","Cody@yahoo.com","300.3","2016-06-16","0","2","","true");
+      assertEquals("Check that ViewAllQuotationlist",outputLanded,allRequestedQuotation3);
       
     } // Done by Jun Cheng
     
