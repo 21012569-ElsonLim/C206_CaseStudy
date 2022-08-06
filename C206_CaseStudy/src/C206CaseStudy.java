@@ -302,8 +302,14 @@ public class C206CaseStudy {
   
   public static String retrieveAllPackage(ArrayList<Package> PackageList) {
 	  String output = "";
-	  for (int i = 0; i < PackageList.size(); i++) {
-		  output += String.format("%-84s\n", PackageList.get(i).toString());
+	  for (Package P : PackageList) {
+		  String ID = P.getPackageCode() + "";
+		  String des = P.getPackageDes() + "";
+		  String startDate = P.getStartDate() + "";
+		  String endDate = P.getEndDate() + "";
+		  double amt = P.getPackageAmount();
+		  output += String.format("%-10s %-30s %-10s %-10s %-20.2f\n", ID, des, startDate, endDate, amt);
+		  
 	  }
 	  return output;
   }

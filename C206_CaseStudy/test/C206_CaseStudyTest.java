@@ -43,9 +43,9 @@ public class C206_CaseStudyTest extends C206CaseStudy {
     Q5 = new Quotation("Private",200.25,"Jacob",98765432,"Jacob@hotmail.com",200.20,p5,1,1,"",true);
     Q6 = new Quotation("Landed",300.25,"Cody",91827364,"Cody@yahoo.com",300.30,p6,0,2,"",true);
     
-    P1 = new Package("P101", "Shiny Kitchen", p1, e1, 400);
-    P2 = new Package("P102", "Small BedRoom", p2, e2, 500);
-    P3 = new Package("P103", "Big Bedroom", p3, e3, 600);
+    P1 = new Package("P101", "Shiny Kitchen", p1, e1, 400.00);
+    P2 = new Package("P102", "Small BedRoom", p2, e2, 500.00);
+    P3 = new Package("P103", "Big Bedroom", p3, e3, 600.00);
     
     QuotationList =new ArrayList<Quotation>();
     RequestedQuotationList = new ArrayList<Quotation>();
@@ -183,6 +183,7 @@ public class C206_CaseStudyTest extends C206CaseStudy {
     
     
   //=======================Add new Package ===========================================================
+    @Test
     public void testAddPackage() {
     	// Package list is not null, so that can add a new Package
     	assertNotNull("Test if there is valid Package arraylist to add to", PackageList);
@@ -202,6 +203,7 @@ public class C206_CaseStudyTest extends C206CaseStudy {
     } // Done by Cong Lin
     
   //=======================View Package ===========================================================
+    @Test
     public void testRetrieveAllPackage() {
     	// Test if Package list is not null but empty, so that can add a new package
     	assertNotNull("Test if there is valid Package arraylist to add to", PackageList);
@@ -219,12 +221,13 @@ public class C206_CaseStudyTest extends C206CaseStudy {
     	//test if the expected output string same as the list of packages retrieved from the CaseStudy
     	allPackage= C206CaseStudy.retrieveAllPackage(PackageList);
 
-    	testOutput = String.format("%-10s %-30s %-10s %-10s %-20d\n", "P101", "Shiny Kitchen", "2015-10-03", "2015-10-07", 400);
-    	testOutput += String.format("%-10s %-30s %-10s %-10s %-20d\n", "P102", "Small BedRoom", "2012-01-12", "2012-01-18", 500);
+    	testOutput = String.format("%-10s %-30s %-10s %-10s %-20.2f\n", "P101", "Shiny Kitchen", "2015-10-03", "2015-10-07", 400.00);
+    	testOutput += String.format("%-10s %-30s %-10s %-10s %-20.2f\n", "P102", "Small BedRoom", "2012-01-12", "2012-01-18", 500.00);
     		
-    	assertEquals("Check that ViewAllPackagelist", testOutput, allPackage);
+    	assertEquals("Check that ViewAllPackagelist", allPackage, testOutput);
     }
-    
+   
+    @Test
     public void testDeletePackage() {
         assertNotNull("Test if there is Package arraylist to add to", PackageList);
         PackageList.add(P1);
