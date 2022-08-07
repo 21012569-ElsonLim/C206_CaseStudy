@@ -15,6 +15,7 @@ public class Package {
 		this.endDate = endDate;
 		this.packageAmount = packageAmount;
 	}
+
 	
 	public String getPackageCode() {
 		return packageCode;

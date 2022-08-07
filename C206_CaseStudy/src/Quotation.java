@@ -99,7 +99,6 @@ public class Quotation {
 	public String getCustomerEmail() {
 		return customerEmail;
 	}
-	
 	public double getbudget() {
 		return budget;
 	}

@@ -9,6 +9,7 @@ import java.util.*;
 	    return scan.nextLine();
 	  }
 
+	  
 	  public static int readInt(String prompt) {
 	    int input = 0;
 	    boolean valid = false;

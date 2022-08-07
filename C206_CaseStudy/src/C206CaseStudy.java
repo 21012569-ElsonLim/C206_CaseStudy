@@ -36,8 +36,8 @@ public class C206CaseStudy {
     
     UserList.add(new User("John", "Admin", "John@gmail.com", "JohnAdmin123", true));
 	UserList.add(new User("Mary", "Customer", "Mary@gmail.com", "Mary456", true));
-	UserList.add(new User("Tom", "Designer", "Tom@gmail.com", "TomDesign789", true));
-    
+	UserList.add(new User("Harry", "Designer", "Harry@gmail.com", "HarryDesign789", true));    
+	
     int logonChoice = -1;
     int customerChoice = -1;
     int StaffChoice = -1;
@@ -533,17 +533,17 @@ public class C206CaseStudy {
 		UserList.add(U);
 	} // Done by Jasrene
   
-  private static String retrieveAllUser(ArrayList<User> userList2) {
+  public static String retrieveAllUser(ArrayList<User> UserList) {
 		String output = "";
 		for (int i = 0; i < UserList.size(); i++) {
-			output += String.format("%-10s %-30s %-10s %-20b\n", UserList.get(i).getName(), UserList.get(i).getRole(), UserList.get(i).getEmail(), UserList.get(i).getStatus(), UserList.get(i).getStatus());
+			output += String.format("%-10s %-30s %-10s %-20b\n", UserList.get(i).getName(), UserList.get(i).getRole(), UserList.get(i).getEmail(), UserList.get(i).getStatus());
 		}
 		return output;
 	} // Done by Jasrene
   
   public static void viewAllUser(ArrayList<User> UserList) {
 		C206CaseStudy.setHeader("User LIST");
-		String output = String.format("%-10s %-30s %-10s %-20s\n", "NAME", "ROLE", "EMAIL", "STATUS", "PACKAGE AMOUNT");
+		String output = String.format("%-10s %-30s %-10s %-20s\n", "NAME", "ROLE", "EMAIL", "STATUS");
 		output += retrieveAllUser(UserList);
 		System.out.println(output);
 	} // Done by Jasrene
