@@ -260,37 +260,38 @@ public class C206CaseStudy {
 		  double d1=QuotationList.get(x).getTotal_Quotation_amt();
 		  String Quotationamt=Double.toString(d1);
 		  LocalDate x1=QuotationList.get(x).getEarliest_Start_Date();
-		  String updatedDate=x1.toString();
-		  output1 += String.format("%-10s %-30s %-10s %-10s %-20s %-20s\n", QuotationList.get(x).getRequest_ID(),
+		 
+		  output1 += String.format("%-30s %-30s %-30s %-30s %-30s %-30s %-30s\n", QuotationList.get(x).getRequest_ID(),
           QuotationList.get(x).getQuotation_ID(), 
           QuotationList.get(x).getRenovation_Category(),QuotationList.get(x).getDescription(),QuotationList.get(x).getDesi_Name()
-          ,updatedDate,Quotationamt);
+          ,x1,Quotationamt);
 	  }
 	  return output1;
   } // Done by Elson
   
   public static void viewAllQuotation(ArrayList<Quotation>QuotationList) {
 	  C206CaseStudy.setHeader("Quotation List");
-	  String output = String.format("%-10s %-30s %-10s %-35s %-20s %-15s %-20s\n", "REQUESTID", "QUOTATION",
-	  "RENOVATIONCATEGORY", "DESCRIPTION","DESIGNER NAME ","EARLIEST START DATE ","TOTAL QUOTATION AMOUNT ");
+	  String output = String.format("%-30s %-30s %-30s %-30s %-30s %-30s %-30s\n", "REQUESTID", "QUOTATION ID",
+	  "RENOVATION CATEGORY", "DESCRIPTION","DESIGNER NAME ","EARLIEST START DATE ","TOTAL QUOTATION AMOUNT ");
     
       output += retrieveAllQuotation(QuotationList);
       System.out.println(output);
   } // Done by Elson
   
   public static Quotation inputQuotation() {
-	  String RequestID = Helper.readString("Enter asset tag > ");
-	  String QuotationID = Helper.readString("Enter Quotation ID > ");
+	  String RequestID = Helper.readString("Enter request id> ");
+	  String QuotationID = Helper.readString("Enter Quotation ID > ");//ask use for input of new quotation id 
 	  String renovationCat = Helper.readString("Enter renovationCat > ");
+	  renovationCat.toUpperCase();
 	  String desiName = Helper.readString("Enter Designer name  > ");
 	  String Description = Helper.readString("Enter description > ");
 	  String earliestStartDate = Helper.readString("Enter earliest Start Date > ");
 	  double TotalQuotationamt = Helper.readDouble("Enter Total Amount  > ");
   
-	  DateTimeFormatter x= DateTimeFormatter.ofPattern("dd/MM/yyyy");
- 	  LocalDate date=LocalDate.parse(earliestStartDate, x);
+	  DateTimeFormatter x= DateTimeFormatter.ofPattern("yyyy-MM-dd");
+ 	  LocalDate date=LocalDate.parse(earliestStartDate, x);//formatting the string ealiestStartdate into a LocalDate object
 
- 	  Quotation Q3= new Quotation(RequestID, QuotationID, renovationCat,desiName,Description,date,TotalQuotationamt);
+ 	  Quotation Q3= new Quotation(RequestID, QuotationID, renovationCat,desiName,Description,date,TotalQuotationamt);//create a quotation object
  	  return Q3;
   } // Done by Elson
   
@@ -308,20 +309,30 @@ public class C206CaseStudy {
 	  LocalDate date1=null;
 	  double quotationAmt=0.0;
         
-	  for(int q = 1;q <=QuotationList.size();q++) {
-		  if(QuotationList.get(q).getQuotation_ID().equalsIgnoreCase(QuotationID)){    
+	  for(int q = 0;q <QuotationList.size();q++) {
+		  if(QuotationList.get(q).getQuotation_ID().equalsIgnoreCase(QuotationID)){    //if the quotation id input is the same as the quotation id in the quotation list 
 			  RID= QuotationList.get(q).getRequest_ID();    	
 			  OID= QuotationList.get(q).getQuotation_ID();    	
 			  Category= QuotationList.get(q).getRenovation_Category();    	 
 			  description= QuotationList.get(q).getDescription();    	
 			  Designer_name= QuotationList.get(q).getDesi_Name();    	 
 			  date1= QuotationList.get(q).getEarliest_Start_Date();
+			 
 			  quotationAmt= QuotationList.get(q).getTotal_Quotation_amt();
-		  }
-	  }
-	  Quotation a = new Quotation(RID, OID, Category, description, Designer_name, date1, quotationAmt);
-	  QuotationList.remove(a);
+			  System.out.println("REQUEST ID:"+RID);
+			  System.out.println("QUOTATION ID:"+OID);
+			  System.out.println("CATEGORY:"+Category);
+			  System.out.println("DESCRIPTION:"+description);
+			  System.out.println("DESIGNER: "+Designer_name);
+			  System.out.println("EARLIEST START DATE: "+date1);
+			  System.out.println("QUOTATION AMOUNT: "+quotationAmt);
+			  
+			  QuotationList.remove(q);//remove the quotation
 
+		  }
+		  
+	  }
+	 
   } // Done by Elson
   
   public static String retrieveAllRequestedQuotation(ArrayList<Quotation> requestedQuotationList, String choice) {

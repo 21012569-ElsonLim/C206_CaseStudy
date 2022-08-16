@@ -108,12 +108,12 @@ public class C206_CaseStudyTest extends C206CaseStudy {
 
 		allQuotation = C206CaseStudy.retrieveAllQuotation(QuotationList);
 
-		testOutput += String.format("%-10s %-30s %-10s %-10s %-20s %-20s\n", "Q101", "QU1", "Kitchen",
-				"Shiny and clean ", "Loki", "2015-10-03");
-		testOutput += String.format("%-10s %-30s %-10s %-10s %-20s %-20s\n", "Q102", "QU2", "Bedroom", "Big and tidy ",
-				"Harry", "2012-01-12");
-		testOutput += String.format("%-10s %-30s %-10s %-10s %-20s %-20s\n", "Q103", "QU3", "Bedroom", "Bright ",
-				"Louis", "2010-05-12");
+		testOutput += String.format("%-30s %-30s %-30s %-30s %-30s %-30s %-30s\n", "Q101", "QU1", "Kitchen",
+				"Shiny and clean ", "Loki", "2015-10-03","359.9");
+		testOutput += String.format("%-30s %-30s %-30s %-30s %-30s %-30s %-30s\n", "Q102", "QU2", "Bedroom", "Big and tidy ",
+				"Harry", "2012-01-12","500.0");
+		testOutput += String.format("%-30s %-30s %-30s %-30s %-30s %-30s %-30s\n", "Q103", "QU3", "Bedroom", "Bright ",
+				"Louis", "2010-05-12","450.0");
 		assertEquals("Check that ViewAllQuotationlist", allQuotation, testOutput);
 
 	} // Done by Elson
