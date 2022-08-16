@@ -76,29 +76,37 @@ public class C206CaseStudy {
       	} else if (logonChoice == 2) {
         String enteredUsername = "";
         String enteredPassword = "";
-        for (User x : UserList) {
+        boolean checker = false;
+        while (checker == false) {
         	enteredUsername = Helper.readString("Username > ");
         	enteredPassword = Helper.readString("Password > ");
-        	if (x.getName().equals(enteredUsername) && x.getPassword().equals(enteredPassword) && (x.getRole().equalsIgnoreCase("Admin") || x.getRole().equalsIgnoreCase("Designer"))) {
-        		while (StaffChoice != 5) {
-        			staff_menu();
-        			StaffChoice = Helper.readInt("Choice > ");
-        			if (StaffChoice == 1) {
-        				int manageCustomer = -1;
-        				while (manageCustomer != 3) {
-        					manageCustomerMenu();
-        					manageCustomer = Helper.readInt("Choice > ");
-        					if (manageCustomer == 1) {
-        						viewAllUser(UserList);
-        					} else if (manageCustomer == 2) {
-        						addUser(UserList,inputUser());
-        					} else if (manageCustomer == 3) {
-        						System.out.println("Going Back");
-        					}else {
-        						System.out.println("Invalid Option");
-        					}
-        				}	
-        			} else if (StaffChoice == 2) {
+        	for (User x : UserList) {
+            	if (x.getName().equals(enteredUsername) && x.getPassword().equals(enteredPassword) && (x.getRole().equalsIgnoreCase("Admin") || x.getRole().equalsIgnoreCase("Designer"))) {
+            		checker = true;
+            		break;
+            	}
+            }
+        }
+        
+        while (StaffChoice != 5 && checker == true) {
+        	staff_menu();
+        	StaffChoice = Helper.readInt("Choice > ");
+        	if (StaffChoice == 1) {
+        		int manageCustomer = -1;
+        		while (manageCustomer != 3) {
+        			manageCustomerMenu();
+        			manageCustomer = Helper.readInt("Choice > ");
+        			if (manageCustomer == 1) {
+      						viewAllUser(UserList);
+     				} else if (manageCustomer == 2) {
+      						addUser(UserList,inputUser());
+        			} else if (manageCustomer == 3) {
+        				System.out.println("Going Back");
+        			}else {
+        				System.out.println("Invalid Option");
+        			}
+        		}	
+        	} else if (StaffChoice == 2) {
         				int managePackage = -1;
         				while (managePackage != 3) {
         					managePackageMenu();
@@ -172,12 +180,9 @@ public class C206CaseStudy {
         				System.out.println("Invalid Option");
         			}
         		}
+
         		StaffChoice = -1;
         		break;
-        	} else {
-        		System.out.println("Invalid Username or Password, please try again.");
-        	}
-        }
         
       } else if (logonChoice == 3){
         System.out.println("Thank you for using Renovation ACE!");
@@ -365,15 +370,20 @@ public class C206CaseStudy {
 	  int customerContactNum = Helper.readInt("Enter your mobile number > ");
 	  String customerEmail = Helper.readString("Enter your email > ");
 	  double budget = Helper.readDouble("Enter your budget > ");
-	  String questiontargetCompletionDate = Helper.readString("Enter completion date > ");
+	  boolean checker = false;
 	  LocalDate targetCompletionDate = null;
-	  String format = "\\d{4}[-]\\d{2}[-]\\d{2}";
-	  if (questiontargetCompletionDate.matches(format)) {
-		  targetCompletionDate = LocalDate.parse(questiontargetCompletionDate);
-		  validation = true;
-	  } else {
-		  System.out.println("Wrong Format");
-	  }
+	  while (checker == false) {
+	  	String questiontargetCompletionDate = Helper.readString("Enter completion date > ");
+	  	String format = "\\d{4}[-]\\d{2}[-]\\d{2}";
+	  	if (questiontargetCompletionDate.matches(format)) {
+		  	targetCompletionDate = LocalDate.parse(questiontargetCompletionDate);
+		  	validation = true;
+		  	checker = true;
+	  	} else {
+		  	System.out.println("Wrong Format");
+	  	}
+  	}
+  
 	  int roomToRenovate = Helper.readInt("Enter amount of rooms > ");
 	  int toiletToRenovate = Helper.readInt("Enter amount of toilets > ");
 	  String renovationStyle = Helper.readString("Enter renovation style (optional) > ");
@@ -413,48 +423,33 @@ public class C206CaseStudy {
   } // Done by Jun Cheng
 
   public static void doDeleteRequestedQuotation(ArrayList<Quotation> requestedQuotationList, String RequestorName) {
-	  Quotation removing = null;
-	  for(Quotation i : requestedQuotationList) {
-	      if(i.getrequestorName().equalsIgnoreCase(RequestorName)){  
-	    	  String propertyType = i.getPropertyType();
-	    	  double areaSize = i.getAreaSize();    	
-	    	  String requestorName = i.getrequestorName();    	 
-	    	  int customerContactNum = i.getcustomerContactNum();    	
-	    	  String customerEmail = i.getCustomerEmail();    	 
-	    	  double budget = i.getbudget();
-	    	  LocalDate targetCompletionDate = i.getTargetCompletionDate();
-	    	  int roomToRenovate = i.getRoomToRenovate();
-	    	  int toiletToRenovate = i.getToiletToRenovate();
-	    	  String renovationStyle = i.getRenovationStyle();
-	    	  boolean urgentRequest = i.getUrgentRequest();
-	    	  removing = new Quotation(propertyType,areaSize,requestorName,customerContactNum,
-	    			  customerEmail,budget,targetCompletionDate,roomToRenovate,toiletToRenovate,renovationStyle,
-	    			  urgentRequest);
+	  boolean checker = false;
+	  for(int i = 0; i < requestedQuotationList.size(); i++) {
+		  checker = true;
+	      if(requestedQuotationList.get(i).getrequestorName().equalsIgnoreCase(RequestorName)){
+	    	  System.out.println("Property Type: " + requestedQuotationList.get(i).getPropertyType());
+	    	  System.out.println("Area Size: " + requestedQuotationList.get(i).getAreaSize());
+	    	  System.out.println("Name: " + requestedQuotationList.get(i).getrequestorName());
+	    	  System.out.println("Contact Number: " + requestedQuotationList.get(i).getcustomerContactNum());
+	    	  System.out.println("Email: " + requestedQuotationList.get(i).getCustomerEmail());
+	    	  System.out.println("Budget: " + requestedQuotationList.get(i).getbudget());
+	    	  System.out.println("By: " + requestedQuotationList.get(i).getTargetCompletionDate());
+	    	  System.out.println("Rooms: " + requestedQuotationList.get(i).getRoomToRenovate());
+	    	  System.out.println("Toilets: " + requestedQuotationList.get(i).getToiletToRenovate());
+	    	  System.out.println("Style: " + requestedQuotationList.get(i).getRenovationStyle());
+	    	  System.out.println("Urgent: " + requestedQuotationList.get(i).getUrgentRequest());
+	    	  String question = Helper.readString("Are you sure (Y/N)> ");
+			  if (question.equalsIgnoreCase("y")) {
+				  requestedQuotationList.remove(i);
+				  System.out.println("Delete Successful");
+			  } else if (question.equalsIgnoreCase("n")) {
+				  System.out.println("Delete Failed");
+			  } else {
+				 System.out.println("Enter either 'Y' or 'N', Delete failed.");
+			  }
+	      } else if (checker == false){
+	    	  System.out.println("There is no such data found.");
 	      }
-	    }
-	  if (removing != null) {
-		  System.out.println("Property Type: " + removing.getPropertyType());
-		  System.out.println("Area Size: " + removing.getAreaSize());
-		  System.out.println("Name: " + removing.getrequestorName());
-		  System.out.println("Contact Number: " + removing.getcustomerContactNum());
-		  System.out.println("Email: " + removing.getCustomerEmail());
-		  System.out.println("Budget: " + removing.getbudget());
-		  System.out.println("By: " + removing.getTargetCompletionDate());
-		  System.out.println("Rooms: " + removing.getRoomToRenovate());
-		  System.out.println("Toilets: " + removing.getToiletToRenovate());
-		  System.out.println("Style: " + removing.getRenovationStyle());
-		  System.out.println("Urgent: " + removing.getUrgentRequest());
-		  String question = Helper.readString("Are you sure (Y/N)> ");
-		  if (question.equalsIgnoreCase("y")) {
-			  requestedQuotationList.remove(removing);
-			  System.out.println("Delete Successful");
-		  } else if (question.equalsIgnoreCase("n")) {
-			  System.out.println("Delete Failed");
-		  } else {
-			 System.out.println("Enter either 'Y' or 'N', Delete failed.");
-		  }
-	  } else {
-		  System.out.println("There is no such data found.");
 	  }
 	  
   } // Done by Jun Cheng
